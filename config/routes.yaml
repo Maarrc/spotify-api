@@ -1,3 +1,144 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+usuarios:
+  path: /usuarios
+  controller: App\Controller\UsuarioController::usuarios
+  methods: GET|POST
+
+usuario:
+  path: /usuario/{id}
+  controller: App\Controller\UsuarioController::usuario
+  methods: GET|PUT|DELETE
+
+usuarioSigueUsuario:
+  path: /usuario/{id}/seguidos
+  controller: App\Controller\UsuarioController::usuario_sigue_usuarios
+  methods: GET
+
+usuarioSigueUsuarios:
+  path: /usuario/{usuario_id}/sigue/{usuario_seguido_id}
+  controller: App\Controller\UsuarioController::usuario_sigue
+  methods: POST|DELETE
+
+configuraciones:
+  path: /usuarios/{usuario_id}/configuracion
+  controller: App\Controller\ConfiguracionController::usuario_configuracion
+  methods: GET|PUT
+
+podcasts:
+  path: /podcasts
+  controller: App\Controller\PodcastController::podcasts
+  methods: GET
+
+podcast:
+  path: /podcast/{id}
+  controller: App\Controller\PodcastController::podcast
+  methods: GET
+
+podcast_usuario:
+  path: /usuario/{id}/podcasts
+  controller: App\Controller\PodcastController::podcast_usuario
+  methods: GET
+
+podcasts_usuario:
+  path: /usuario/{id}/podcast/{id}
+  controller: App\Controller\PodcastController::podcasts_usuario
+  methods: POST|DELETE
+
+capitulos:
+  path: /podcast/{id}/capitulos
+  controller: App\Controller\CapitulosController::capitulos
+  methods: GET
+
+capitulo:
+  path: /podcast/{id}/capitulos
+  controller: App\Controller\CapitulosController::capitulo
+  methods: GET
+
+playlists:
+  path: /playlists
+  controller: App\Controller\PlaylistsController::playlists
+  methods: GET|POST
+
+playlist:
+  path: /playlist/{id}
+  controller: App\Controller\PlaylistsController::playlist
+  methods: GET
+
+playlists_usuario:
+  path: /usuario/{id}/playlists
+  controller: App\Controller\PlaylistsController::playlists_usuario
+  methods: GET
+
+playlist_usuario:
+  path: /usuario/{id}/playlist/{id}
+  controller: App\Controller\PlaylistsController::playlist_usuario
+  methods: GET|PUT|DELETE
+
+canciones:
+  path: /canciones
+  controller: App\Controller\CancionesController::canciones
+  methods: GET
+
+cancion:
+  path: /cancion/{id}
+  controller: App\Controller\CancionesController::cancion
+  methods: GET
+
+canciones_playlist:
+  path: /playlist/{id}/canciones
+  controller: App\Controller\CancionesController::canciones_playlist
+  methods: GET
+
+cancion_playlist:
+  path: /playlist/{id}/cancion/{id}
+  controller: App\Controller\CancionesController::cancion_playlist
+  methods: POST|DELETE
+
+artistas:
+  path: /artistas
+  controller: App\Controller\ArtistasController::artistas
+  methods: GET
+
+artista_albums:
+  path: /artista/{id}/albums
+  controller: App\Controller\ArtistasController::artista_albums
+  methods: GET
+
+artista_album:
+  path: /artista/{id}/album/{id}
+  controller: App\Controller\ArtistasController::artista_album
+  methods: GET
+
+albums:
+  path: /albums
+  controller: App\Controller\AlbumsController::albums
+  methods: GET
+
+
+album:
+  path: /album/{id}
+  controller: App\Controller\AlbumsController::album
+  methods: GET
+
+album_canciones:
+  path: /album/{id}/canciones
+  controller: App\Controller\AlbumsController::album_canciones
+  methods: GET
+
+calidad:
+  path: /calidades
+  controller: App\Controller\CalidadController::calidad
+  methods: GET
+
+idioma:
+  path: /idiomas
+  controller: App\Controller\IdiomaController::idioma
+  methods: GET
+
+idioma:
+  path: /tipos-descargas
+  controller: App\Controller\TipoDescargaController::tipos_descarga
+  methods: GET
+
