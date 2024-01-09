@@ -65,7 +65,7 @@ class Podcast
      *
      * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="podcast")
      * 
-     * @Groups("Podcast")
+     * 
      */
     private $usuario = array();
 
