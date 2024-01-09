@@ -156,6 +156,7 @@ class Usuario
      *   inverseJoinColumns={
      *     @ORM\JoinColumn(name="playlist_id", referencedColumnName="id")
      *   }
+     * )
      * @Groups("Usuario")
      */
     private $playlist = array();
@@ -171,6 +172,8 @@ class Usuario
         $this->artista = new \Doctrine\Common\Collections\ArrayCollection();
         $this->playlist = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+
 
 
     /**

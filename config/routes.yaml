@@ -42,7 +42,7 @@ podcast_usuario:
   methods: GET
 
 podcasts_usuario:
-  path: /usuario/{id}/podcast/{id}
+  path: /usuario/{usuario_id}/podcast/{id}
   controller: App\Controller\PodcastController::podcasts_usuario
   methods: POST|DELETE
 
@@ -72,7 +72,7 @@ playlists_usuario:
   methods: GET
 
 playlist_usuario:
-  path: /usuario/{id}/playlist/{id}
+  path: /usuario/{usuario_id}/playlist/{id}
   controller: App\Controller\PlaylistsController::playlist_usuario
   methods: GET|PUT|DELETE
 
@@ -92,7 +92,7 @@ canciones_playlist:
   methods: GET
 
 cancion_playlist:
-  path: /playlist/{id}/cancion/{id}
+  path: /playlist/{playlist_id}/cancion/{id}
   controller: App\Controller\CancionesController::cancion_playlist
   methods: POST|DELETE
 
@@ -107,7 +107,7 @@ artista_albums:
   methods: GET
 
 artista_album:
-  path: /artista/{id}/album/{id}
+  path: /artista/{artista_id}/album/{id}
   controller: App\Controller\ArtistasController::artista_album
   methods: GET
 
@@ -137,7 +137,7 @@ idioma:
   controller: App\Controller\IdiomaController::idioma
   methods: GET
 
-idioma:
+tipodescargas:
   path: /tipos-descargas
   controller: App\Controller\TipoDescargaController::tipos_descarga
   methods: GET
