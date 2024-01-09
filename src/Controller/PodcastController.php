@@ -50,14 +50,20 @@ class PodcastController extends AbstractController
         $id = $request->get("id");
         $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneBy(["id"=>$id]);
         if ($request->isMethod('GET')) {
-            $podcasts = $this ->getDoctrine()->getRepository(Podcast::class)->findAll();
-            $podcasts = $serializer->serialize(
-                $podcasts,
-                'json',
-                ['groups'=>['Podcast']]
+            $podcastUsuario = $serializer->serialize($usuario->getPodcast(), 'json', ['groups'=>['Podcast']]);
+            return new Response($podcastUsuario);
+        } 
+    }
 
-            );
-            return new Response($podcasts);
+    public function podcasts_usuario(Request $request, SerializerInterface $serializer)
+    {
+        $id = $request->get("id");
+        $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneBy(["id"=>$id]);
+        $podcast_id = $request->get("id_podcast");
+        $podcast = $this->getDoctrine()->getRepository(Podcast::class)->findOneBy(["id"=>$podcast_id]);
+
+        if ($request->isMethod('POST')) {
+            
         }
     }
 }
