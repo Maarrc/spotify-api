@@ -69,7 +69,7 @@ class Cancion
      *   @ORM\JoinColumn(name="album_id", referencedColumnName="id")
      * })
      * 
-     * @Groups("Cancion")
+     * 
      */
     private $album;
 
@@ -78,7 +78,7 @@ class Cancion
      *
      * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="cancion")
      * 
-     * @Groups("Cancion")
+     * 
      */
     private $usuario = array();
 
@@ -95,7 +95,7 @@ class Cancion
      *   }
      * )
      * 
-     * @Groups("Cancion")
+     * 
      */
     private $premiumUsuario = array();
 

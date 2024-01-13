@@ -96,7 +96,7 @@ class Album
      *
      * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="album")
      * 
-     * @Groups("Album")
+     * 
      */
     private $usuario = array();
 
