@@ -143,3 +143,13 @@ tipos_descarga:
   controller: App\Controller\TipoDescargaController::tipos_descarga
   methods: GET
 
+suscripciones:
+  path: /usuario/{id}/suscripciones
+  controller: App\Controller\SuscripcionesController::suscripciones
+  methods: GET
+
+suscripcion:
+  path: /usuario/{id}/suscripcion/{sus_id}
+  controller: App\Controller\SuscripcionesController::suscripcion
+  methods: GET
+

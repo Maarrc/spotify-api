@@ -51,7 +51,7 @@ class Suscripcion
      *   @ORM\JoinColumn(name="premium_usuario_id", referencedColumnName="usuario_id")
      * })
      * 
-     * @Groups("Suscripcion")
+     * 
      */
     private $premiumUsuario;
 
