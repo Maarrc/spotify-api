@@ -53,7 +53,7 @@ capitulos:
   methods: GET
 
 capitulo:
-  path: /podcast/{id}/capitulos
+  path: /podcast/{id}/capitulo/{id_capitulo}
   controller: App\Controller\CapitulosController::capitulo
   methods: GET
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Album;
 use App\Entity\Artista;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,6 +27,54 @@ class ArtistasController extends AbstractController
             return new Response($artista);
 
 
+        }
+    }
+
+
+    public function artista_albums(Request $request, SerializerInterface $serializer)
+    {
+        if ($request->isMethod('GET')){
+            $id_artista = $request->get('id');
+            
+            $album_artista = $this->getDoctrine()->getRepository(Album::class)->findBy(['artista'=>$id_artista]);
+
+            $albums = $serializer->serialize(
+                $album_artista,
+                'json',
+                ['groups'=>['Album', 'Artistas']]
+
+            );
+            return new Response($albums);
+            
+
+            
+
+            
+
+
+
+
+
+        }
+    }
+
+
+    public function artista_album(Request $request, SerializerInterface $serializer)
+    {
+        if ($request->isMethod('GET')){
+            $id_artista = $request->get('id');
+
+            $id_album = $request->get('id_album');
+            
+            $album_artista = $this->getDoctrine()->getRepository(Album::class)->findBy(['artista'=>$id_artista, 'id'=>$id_album]);
+
+            $albums = $serializer->serialize(
+                $album_artista,
+                'json',
+                ['groups'=>['Album', 'Artistas']]
+
+            );
+            return new Response($albums);
         }
     }
 }
