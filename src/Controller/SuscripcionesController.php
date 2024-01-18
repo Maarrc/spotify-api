@@ -30,30 +30,9 @@ class SuscripcionesController extends AbstractController
         $id_suscripcion = $request->get("sus_id");
         $suscripcion = $this->getDoctrine()->getRepository(Suscripcion::class)->findOneBy(["premiumUsuario"=>$id_usuario, "id"=>$id_suscripcion]);
         if ($request->isMethod('GET')) {
-            $pago = $this->getDoctrine()->getRepository(Pago::class)->findOneBy(['suscripcion'=>$id_suscripcion]);
-            $formaPago = $this->getDoctrine()->getRepository(FormaPago::class)->findOneBy(['id'=>$pago->getFormaPago()]);
-            $paypal = $this->getDoctrine()->getRepository(Paypal::class)->findOneBy(['formaPago'=>$formaPago->getId()]);
-            $tarjeta = $this->getDoctrine()->getRepository(TarjetaCredito::class)->findOneBy(['formaPago'=>$formaPago->getId()]);
-            if ($paypal->getId() != null) {
-                $datos = [
-                    'datos' => [
-                        'suscripcion' => $serializer->serialize($suscripcion, 'json', ['groups' => ['Suscripcion']]),
-                        'pago' => $serializer->serialize($pago, 'json', ['groups' => ['Pago']]),
-                        'paypal' => $serializer->serialize($paypal, 'json', ['groups' => ['Paypal']])
-                    ],
-                ];
-            } else{
-                $datos = [
-                    'datos' => [
-                        'suscripcion' => $serializer->serialize($suscripcion, 'json', ['groups' => ['Suscripcion']]),
-                        'pago' => $serializer->serialize($pago, 'json', ['groups' => ['Pago']]),
-                        'tarjeta' => $serializer->serialize($tarjeta, 'json', ['groups' => ['Tarjeta']])
-                    ],
-                ];
-            }
-            
-            
-            return new Response($datos);
+            $suscripcionesUsuario = $serializer->serialize($suscripcion, 'json', ['groups'=>['Suscripcion']]);
+            return new Response($suscripcionesUsuario);
         }
+        
     }
 }

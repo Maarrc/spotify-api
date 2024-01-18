@@ -28,7 +28,7 @@ class TarjetaCredito
      *
      * @ORM\Column(name="mes_caducidad", type="boolean", nullable=false)
      * 
-     * @Groups("Tarjeta")
+     * 
      */
     private $mesCaducidad;
 
@@ -37,7 +37,7 @@ class TarjetaCredito
      *
      * @ORM\Column(name="anyo_caducidad", type="date", nullable=false)
      * 
-     * @Groups("Tarjeta")
+     * 
      */
     private $anyoCaducidad;
 

@@ -7,6 +7,7 @@ use App\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class PodcastController extends AbstractController
@@ -63,7 +64,27 @@ class PodcastController extends AbstractController
         $podcast = $this->getDoctrine()->getRepository(Podcast::class)->findOneBy(["id"=>$podcast_id]);
 
         if ($request->isMethod('POST')) {
+            $podcasts = $usuario->getPodcast();
+            $podcasts->add($podcast);
+
+            $usuario->setPodcast($podcasts);
+
+            $this->getDoctrine()->getManager()->persist($usuario);
+            $this->getDoctrine()->getManager()->flush();
             
+            return new JsonResponse(['msg' => 'Has comenzado a seguir el podcast']);
+        }
+
+        if ($request->isMethod('DELETE')) {
+            $podcasts = $usuario->getPodcast();
+            $podcasts->remove($podcast);
+
+            $usuario->setPodcast($podcasts);
+
+            $this->getDoctrine()->getManager()->remove($usuario);
+            $this->getDoctrine()->getManager()->flush();
+            
+            return new JsonResponse(['msg' => 'Has dejado a seguir el podcast']);
         }
     }
 }
