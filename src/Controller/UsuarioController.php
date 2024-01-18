@@ -2,7 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Calidad;
+use App\Entity\Configuracion;
+use App\Entity\Free;
+use App\Entity\Idioma;
+use App\Entity\TipoDescarga;
 use App\Entity\Usuario;
+use DateTime;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +32,47 @@ class UsuarioController extends AbstractController
         }
 
         if ($request->isMethod('POST')) {
+            $bodydata = $request->getContent();
+                $usuario_new = $serializer->deserialize(
+                    $bodydata,
+                    Usuario::class,
+                    'json'
+                );
+
+            $this->getDoctrine()->getManager()->persist($usuario_new);
+
+            $configuracion = new Configuracion();
+            $configuracion->setAutoplay(true);
+            $configuracion->setAjuste(true);
+
+            $configuracion->setNormalizacion(true);
+
+            $tipo_descarga = $this->getDoctrine()->getRepository(TipoDescarga::class)->findOneBy(['id'=> 4]);
+            $configuracion->setTipoDescarga($tipo_descarga);
+            $configuracion->setUsuario($usuario_new);
+
+            $Calidad = $this->getDoctrine()->getRepository(Calidad::class)->findOneBy(['id'=> 1]);
+            $configuracion->setCalidad($Calidad);
+
+            $Idioma = $this->getDoctrine()->getRepository(Idioma::class)->findOneBy(['id'=> 1]);
+            $configuracion->setIdioma($Idioma);
+
+            $this->getDoctrine()->getManager()->persist($configuracion);
             
+            $Free = new Free();
+            $Free->setFechaRevision(new \DateTime());
+            $Free->setUsuario($usuario_new);
+            $this->getDoctrine()->getManager()->persist($Free);
+            $this->getDoctrine()->getManager()->flush();
+
+            $Free = $serializer->serialize(
+                $Free,
+                'json',
+                ['groups'=>['Free', 'Usuario']]
+
+            );
+            return new Response($Free);
+
         }
 
     }

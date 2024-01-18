@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Activa;
 use App\Entity\Eliminada;
 use App\Entity\Playlist;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -96,12 +98,24 @@ class PlaylistsController extends AbstractController
         if($request->isMethod('DELETE'))
         {
             $playlist = $this->getDoctrine()->getRepository(Playlist::class)->findOneBy(['id'=>$id_playlist, 'usuario' => $id_usuario]); 
-            $hoy = getdate();
+            
+            $Eliminada_playlist = new Eliminada();
+            $Activa_Playlist = $this->getDoctrine()->getRepository(Activa::class)->findOneBy(['playlist'=>$playlist]);
+            
+            $Eliminada_playlist->setPlaylist($playlist);
+            $Eliminada_playlist->setFechaEliminacion(new \DateTime());
 
 
+            $this->getDoctrine()->getManager()->remove($Activa_Playlist);
+            $this->getDoctrine()->getManager()->persist($Eliminada_playlist);
+            $this->getDoctrine()->getManager()->flush();
 
-            $this->getDoctrine()->getManager(Eliminada::class)->persist($hoy, $playlist);
-            $this->getDoctrine()->getManager(Eliminada::class)->flush();
+            $playlist_eliminada = $serializer->serialize(
+                $Eliminada_playlist,
+                'json',
+                ['groups'=>['Eliminada', 'Playlist']]
+            );
+            return new Response($playlist_eliminada);
 
             
         
