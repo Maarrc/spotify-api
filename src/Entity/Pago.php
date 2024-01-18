@@ -30,7 +30,7 @@ class Pago
      *
      * @ORM\Column(name="fecha", type="date", nullable=false)
      * 
-     * @Groups("Pago")
+     * 
      */
     private $fecha;
 
