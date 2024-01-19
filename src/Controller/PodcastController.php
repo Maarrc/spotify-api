@@ -77,11 +77,11 @@ class PodcastController extends AbstractController
 
         if ($request->isMethod('DELETE')) {
             $podcasts = $usuario->getPodcast();
-            $podcasts->remove($podcast);
+            $podcasts->removeElement($podcast);
 
             $usuario->setPodcast($podcasts);
 
-            $this->getDoctrine()->getManager()->remove($usuario);
+            $this->getDoctrine()->getManager()->persist($usuario);
             $this->getDoctrine()->getManager()->flush();
             
             return new JsonResponse(['msg' => 'Has dejado a seguir el podcast']);
