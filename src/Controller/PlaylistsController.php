@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Activa;
 use App\Entity\Eliminada;
 use App\Entity\Playlist;
+use App\Entity\Usuario;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,10 +30,7 @@ class PlaylistsController extends AbstractController
             return new Response($playlists);
         }
 
-        if($request->isMethod('POST'))
-        {
-
-        }
+        
         
     }
 
@@ -53,6 +51,32 @@ class PlaylistsController extends AbstractController
             );
             return new Response($playlists);
 
+        }
+
+        if ($request->isMethod('POST'))
+        {
+            $id_usuario = $request->get('id');
+            $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneBy(['id'=>$id_usuario]);
+
+            $bodydata = $request->getContent();
+                $Playlist_new = $serializer->deserialize(
+                    $bodydata,
+                    Playlist::class,
+                    'json'
+                );
+
+                $Playlist_new->setUsuario($usuario);
+
+                $this->getDoctrine()->getManager()->persist($Playlist_new);
+                $this->getDoctrine()->getManager()->flush();
+
+                $playlist = $serializer->serialize(
+                    $Playlist_new,
+                    'json',
+                    ['groups'=>['Playlist', 'Usuario']]
+                );
+
+                return new Response($playlist);
         }
         
 

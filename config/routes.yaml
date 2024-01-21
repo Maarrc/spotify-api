@@ -60,7 +60,7 @@ capitulo:
 playlists:
   path: /playlists
   controller: App\Controller\PlaylistsController::playlists
-  methods: GET|POST
+  methods: GET
 
 playlist:
   path: /playlist/{id}
@@ -70,7 +70,7 @@ playlist:
 playlists_usuario:
   path: /usuario/{id}/playlists
   controller: App\Controller\PlaylistsController::playlists_usuario
-  methods: GET
+  methods: GET|POST
 
 playlist_usuario:
   path: /usuario/{id}/playlist/{id_playlist}
