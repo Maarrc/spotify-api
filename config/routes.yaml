@@ -117,6 +117,11 @@ albums:
   controller: App\Controller\AlbumsController::albums
   methods: GET
 
+usuario_albums:
+  path: /usuario/{id}/albums
+  controller: App\Controller\AlbumsController::usuario_albums
+  methods: GET
+
 
 album:
   path: /album/{id}
